@@ -7,7 +7,7 @@ A simple yet modular audio visualisation toolkit for TouchDesigner.
 Sndviz converts an audio CHOP stream to various TOP modules. Each module consists of discreet data in RGBA channels: high values in red, mids in green, lows in blue, and auxilary data in alpha. These modules can be used for 3d geometry instancing, 2d texturing and other real time audio visualisation use cases where numerous tox files reference the same audio stream.
 
 ## Setup
-1. Drop the `Sndviz.tox` file into your TouchDesigner project. 
+1. Drop the [Sndviz.tox](/Sndviz.tox) file into your TouchDesigner project. 
 1. On the `Sndviz` base component parameters panel, open the `Audio` tab. Inside the `Input` section, select your preferred `Audio Input Device`. 
     * I recommend [Cable](https://www.vb-audio.com/Cable/) for Windows or [Soundflower](https://github.com/mattingalls/Soundflower) for Mac. These allow you to feed local audio (Spotify, Firefox, etc.) to TouchDesigner/Sndviz directly.
     * If you are using Cable, select `CABLE Input (VB-Audio Virtual Cable)` as the Windows sound output device, and `CABLE Output (VB-Audio Virtual Cable)` as the sound input device. 
