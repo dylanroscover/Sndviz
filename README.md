@@ -1,31 +1,31 @@
 # Sndviz
-A simple yet modular audio visualisation toolkit for TouchDesigner
+A simple yet modular audio visualisation toolkit for TouchDesigner.
 
-![Sndviz Tox Example Animation](/img/SNdvizPreview.gif)
+![Sndviz Tox Example Animation](/img/SndvizPreview.gif)
 
 ## What it does
-Sndviz converts an audio stream CHOP to various TOP modules. Each module consists of discreet RGBA channel data: red for highs, green for mids, blue for lows, and alpha for auxilary data. These modules can be used for 3d geometry instancing, 2d texturing and other real time audio visualisation use cases where numerous tox files reference the same audio stream.
+Sndviz converts an audio CHOP stream to various TOP modules. Each module consists of discreet data in RGBA channels: high values in red, mids in green, lows in blue, and auxilary data in alpha. These modules can be used for 3d geometry instancing, 2d texturing and other real time audio visualisation use cases where numerous tox files reference the same audio stream.
 
 ## Setup
 1. Drop the `Sndviz.tox` file into your TouchDesigner project. 
 1. On the `Sndviz` base component parameters panel, open the `Audio` tab. Inside the `Input` section, select your preferred `Audio Input Device`. 
-    * I recommend [Cable](https://www.vb-audio.com/Cable/) for Windows or [Soundflower](https://github.com/mattingalls/Soundflower) for Mac. These allow you to feed local audio playback (Spotify, Firefox, etc.) to TouchDesigner/Sndviz directly.
-    * If you are using Cable, select `CABLE Input` as the Windows sound output device, and `CABLE Output` as the sound input device. 
-1. To preview sound output locally, select your preferred Audio Output Device and toggle the Enable Audio Output button to `On`. You may also adjust the `Output Buffer` here to compensate for video latency.
+    * I recommend [Cable](https://www.vb-audio.com/Cable/) for Windows or [Soundflower](https://github.com/mattingalls/Soundflower) for Mac. These allow you to feed local audio (Spotify, Firefox, etc.) to TouchDesigner/Sndviz directly.
+    * If you are using Cable, select `CABLE Input (VB-Audio Virtual Cable)` as the Windows sound output device, and `CABLE Output (VB-Audio Virtual Cable)` as the sound input device. 
+1. To monitor sound output, select your preferred `Audio Output Device` and toggle the `Enable Audio Output` button to `On`. You can also adjust the `Output Buffer` here to compensate for video latency.
 
 ## Usage
 ### Single TouchDesigner Instance (Local)
 1. Inside the `Sndviz` base component, open the `internalSelects` base component. 
 1. Inside `internalSelects` are 16 individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
-    * Due to the excellent optimisation of TouchDesigner, only the Selects you use and display in your final render will be computed from Sndviz, and the rest will be ignored.
-1. As long as the Sndviz component is not removed from your project, these Selects will always be available.
+    * Due to the excellent optimisation of TouchDesigner, only Selects you use and display in your final render will be computed from Sndviz; the rest will be ignored.
+1. As long as the `Sndviz` base component is not removed from your project, these Selects will be available.
 
 ### Multiple TouchDesigner Instances (Local/Network)
 Sometimes it can be useful to run Sndviz on a separate machine for additional performance, compute constraints and overall flexibility.
 1. Inside the `Sndviz` base component, cut (or copy) the `SndvizReceiver` base component and paste it into your destination TouchDesigner project. 
-1. If the destination project is running on your local machine (localhost), you do not need to modify any parameters on `sender` or `SndvizReceiver` and 
-    * The stream should work out of the box, so long as network ports `9988`, `8877`, and `7766` are all open and not in use. If they are in use, they can be easily changed on both the `sender` and `SndvidReceiver` base component `Network Settings` tabs, in the `Touch In Ports` and `Touch Out Ports` sections. Ensure that the three ports match between both components.
-1. If the destination project is running on a remote machine on your network, select the `SndvizReceiver` base component, the `Network Settings` tab, and change the `Computer Name / IP` parameter from `localhost` to the IP of the source machine that Sndviz is running on.
+1. If the destination project is running on your local machine (localhost), you do not need to modify any parameters on the `sender` or `SndvizReceiver` base components. 
+    * The Touch In/Out streams should work out of the box, so long as network ports `9988`, `8877`, and `7766` are all open and not in use. If they are in use, they can be easily changed on both the `sender` and `SndvidReceiver` base components `Network Settings` tabs, in the `Touch In Ports` and `Touch Out Ports` sections. Ensure that all ports correspond (match) between both components.
+1. If the destination project is running on a remote machine on your network, select the `SndvizReceiver` base component, then the `Network Settings` tab, and change the `Computer Name / IP` parameter from `localhost` to the IP of the source machine that Sndviz is running on.
 1. Inside the `externalSelects` base component (inside of `SndvizReceiver`) are 16 individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
 
 ## Changelog
@@ -73,11 +73,12 @@ Initial public beta release.
 * To additionally compensate for video latency, adjust the `Output Buffer (sec)` parameter.
 
 #### Video
-* To additionally increase (or decrease) the resolution of the visualisations, adjust the `Global Res Multiplier` parameter under the `Video` tab. The `Tile Resolution` parameter (read-only) indicates the resolution of each square tile of the full Sndviz texture (4 x 3 tiles in total).
-* To correct the ratio of red, green and blue channels visualised, adjust the `RGB Multiplier` parameter under the `Video` tab.
-* Jump Cuts on `tex1` and `tex2` (triggered on each downbeat) may be disabled via the `Jump Cut` toggle parameter under the `Video` tab.
-* By default Sndviz is a 32-bit float component, for maximum accuracy and quality. (It also transmits 32-bit float values over the network to SndvizReceiver). Sndviz can be set to 8-bit or 16-bit to improve performance via the `Pixel Format` parameter under the `Video` tab.
+* To additionally increase (or decrease) the resolution of the visualisations, adjust the `Global Res Multiplier` parameter. 
+    * The `Tile Resolution` parameter (read-only) indicates the resolution of each square tile of the full Sndviz texture (4 x 3 tiles in total).
+* To correct the ratio of red, green and blue channels visualised, adjust the `RGB Multiplier` parameter.
+* Jump Cuts on `tex1` and `tex2` (triggered on each downbeat) may be disabled via the `Jump Cut` toggle parameter.
+* By default Sndviz is a `32-bit` float component, for maximum accuracy and quality. (It also transmits 32-bit float values over the network to `SndvizReceiver`). Sndviz can be set to `8-bit` or `16-bit` to improve performance via the `Pixel Format` parameter.
 
 ## Acknowledgements
 
-Shoutout to [Derivative](https://derivative.ca), [Elburz](https://interactiveimmersive.io), [Alpha MoonBase](https://alphamoonbase.de/), [elekktronaut](https://elekktronaut.com/) and everyone else who's helped me directly or indirectly along the way. We're all in this together.
+Shoutout to [Derivative](https://derivative.ca), [Elburz](https://interactiveimmersive.io), [Alpha MoonBase](https://alphamoonbase.de/), [elekktronaut](https://elekktronaut.com/) and everyone else who's helped me directly or indirectly along the way.
