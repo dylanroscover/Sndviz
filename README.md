@@ -18,7 +18,7 @@ Sndviz converts an audio CHOP stream to various TOP modules. Each module consist
 ### Single TouchDesigner Instance (Local)
 1. Inside the `Sndviz` base component, open the `internalSelects` base component. 
 1. Inside the `parSelects` base component are Select TOPs referencing a `SndvizReferences` Parameter DAT. This network can be copied and pasted anywhere in your TouchDesigner project for easy referencing. (Make sure to include the Parameter DAT along with the selects or they will lose their reference.)
-1. Inside the `globalOPSelects` base component are Select TOPs directly referencing Sndviz. Each of these can be copied and pasted anywhere in your TouchDesigner project for easy referencing.
+1. Inside the `globalSelects` base component are Select TOPs directly referencing Sndviz. Each of these can be copied and pasted anywhere in your TouchDesigner project for easy referencing.
     * Due to the optimised nature of TouchDesigner, only Selects you use and display in your final render will be computed from Sndviz; the rest will be ignored.
     * As long as the `Sndviz` base component is included your project, all selects will be available.
 
@@ -28,7 +28,7 @@ Sometimes it can be useful to run Sndviz on a separate machine for additional pe
 1. If the destination project is running on your local machine (localhost), you do not need to modify any parameters on the `sender` or `SndvizReceiver` base components. 
     * The Touch In/Out streams should work out of the box, so long as network ports `9988`, `8877`, and `7766` are all open and not in use. If they are in use, they can be easily changed on both the `sender` and `SndvidReceiver` base components `Network Settings` pages, in the `Touch In Ports` and `Touch Out Ports` sections. Ensure that all ports correspond (match) between both components.
 1. If the destination project is running on a remote machine on your network, select the `SndvizReceiver` base component, then the `Network Settings` page, and change the `Computer Name / IP` parameter from `localhost` to the IP of the source machine that Sndviz is running on.
-1. Inside the `globalReceiverOPSelects` base component (inside of `SndvizReceiver`) are 16 individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
+1. Inside the `globalReceiverSelects` base component (inside of `SndvizReceiver`) are 16 individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
 
 ## Demos
 Demo toxes are included in the [/demo/](/demo/) folder, showing how Sndviz modules can be integrated into your project.
