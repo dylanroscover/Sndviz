@@ -8,17 +8,19 @@ Sndviz converts an audio CHOP stream to various TOP modules. Each module consist
 
 ## Setup
 1. Drop the [Sndviz.tox](/Sndviz.tox) file into your TouchDesigner project. 
-1. On the `Sndviz` base component parameters panel, open the `Audio` page. Inside the `Input` section, select your preferred `Audio Input Device`. 
+1. On the `Sndviz` base component parameters panel, open the `Audio` page. Inside the `Input` section, select your preferred `Audio Input Device`, `Audio File`, or roll your own input with an `In CHOP`. 
     * I recommend [Cable](https://www.vb-audio.com/Cable/) for Windows or [Soundflower](https://github.com/mattingalls/Soundflower) for Mac. These allow you to feed local audio (Spotify, Firefox, etc.) to TouchDesigner/Sndviz directly.
     * If you are using Cable, select `CABLE Input (VB-Audio Virtual Cable)` as the Windows sound output device, and `CABLE Output (VB-Audio Virtual Cable)` as the sound input device. 
+1. Once your preferred audio source is selected, sound data should begin visualising across all Sndviz modules. If they remain black, verify your audio source is correctly configured.
 1. To monitor sound output, select your preferred `Audio Output Device` and toggle the `Enable Audio Output` button to `On`. You can also adjust the `Output Buffer` here to compensate for video latency.
 
 ## Usage
 ### Single TouchDesigner Instance (Local)
 1. Inside the `Sndviz` base component, open the `internalSelects` base component. 
-1. Inside `internalSelects` is a `SndvizModules` Parameter DAT table with an example Select TOP, as well as 16 individual Select OPs. Any of these can be copied and pasted anywhere in your TouchDesigner project for easy referencing.
+1. Inside the `parSelects` base component are Select TOPs referencing a `SndvizReferences` Parameter DAT. This network can be copied and pasted anywhere in your TouchDesigner project for easy referencing. (Make sure to include the Parameter DAT along with the selects or they will lose their reference.)
+1. Inside the `globalOPSelects` base component are Select TOPs directly referencing Sndviz. Each of these can be copied and pasted anywhere in your TouchDesigner project for easy referencing.
     * Due to the optimised nature of TouchDesigner, only Selects you use and display in your final render will be computed from Sndviz; the rest will be ignored.
-1. As long as the `Sndviz` base component is not removed from your project, these Selects will be available.
+    * As long as the `Sndviz` base component is included your project, all selects will be available.
 
 ### Multiple TouchDesigner Instances (Local/Network)
 Sometimes it can be useful to run Sndviz on a separate machine for additional performance, compute constraints and overall flexibility.
@@ -26,12 +28,17 @@ Sometimes it can be useful to run Sndviz on a separate machine for additional pe
 1. If the destination project is running on your local machine (localhost), you do not need to modify any parameters on the `sender` or `SndvizReceiver` base components. 
     * The Touch In/Out streams should work out of the box, so long as network ports `9988`, `8877`, and `7766` are all open and not in use. If they are in use, they can be easily changed on both the `sender` and `SndvidReceiver` base components `Network Settings` pages, in the `Touch In Ports` and `Touch Out Ports` sections. Ensure that all ports correspond (match) between both components.
 1. If the destination project is running on a remote machine on your network, select the `SndvizReceiver` base component, then the `Network Settings` page, and change the `Computer Name / IP` parameter from `localhost` to the IP of the source machine that Sndviz is running on.
-1. Inside the `externalSelects` base component (inside of `SndvizReceiver`) are 16 individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
+1. Inside the `globalReceiverOPSelects` base component (inside of `SndvizReceiver`) are 16 individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
 
 ## Demos
-Demo toxes are included in the [/demo/](/demo/) folder, showing how Sndviz modules can be integrated into your projects. (To-do)
+Demo toxes are included in the [/demo/](/demo/) folder, showing how Sndviz modules can be integrated into your project.
 
 ## Changelog
+### 0.3.1b
+* Minor performance improvements in `audioSrc` base component
+* Updated Select TOP references (Parameter selects, Global selects and Global Receiver selects options)
+* Added initial demo scene [sunSpotsDemo.tox](/demo/sunSpotsDemo.tox)
+
 ### 0.3.0b
 * Added `Audio File In` and `CHOP In` parameters
 * Updated binding setup
