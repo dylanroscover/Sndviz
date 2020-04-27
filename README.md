@@ -31,7 +31,7 @@ Sometimes it can be useful to run Sndviz on a separate machine for additional pe
 1. Inside the `globalReceiverSelects` base component (inside of `SndvizReceiver`) are 16 individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
 
 ## Demos
-Demo toxes are included in the [/demo/](/demo/) folder, showing how Sndviz modules can be integrated into your project.
+Demo toxes are included in the [/demo/](/demo/) folder, demonstrating how Sndviz modules can be integrated into your project.
 
 ## Changelog
 ### 0.3.1b
