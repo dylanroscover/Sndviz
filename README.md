@@ -66,9 +66,10 @@ Initial public beta release.
 * Select OPs between different Touch instances using: `op.SndvizReceiver.op('name-of-module')`.
 * OP shortcuts can also be found on the `Modules` page of the Sndviz base component.
 
-The following Sndviz modules are currently implemented:
-1. `avg1` - A single pixel of overall average values for high (red), mid (green) and low (blue) values.
-1. `avg2` -
+The following Sndviz modules are currently implemented (all TOPs are in RGBA format):
+1. `avg1` - A 1x1 pixel of averages for high (red), mid (green) and low (blue) ranges. Alpha channel is an average of all ranges.
+1. `avg2` - A 4x4 matrix of averages for high (red), mid (green) and low (blue) values. Alpha channel is an average of all ranges.
+1. `bars1` - A 1D feedback texture of detected beats (RGBA). Alpha channel is float, RGB are boolean values.
 1. `beat1` - Basic beat detection that runs best with simple electronic music.
     1. `beat` channel - Each beat of the song.
     1. `counter` channel - 8-integer counter (0-7) that loops, based on the beat.
@@ -76,17 +77,17 @@ The following Sndviz modules are currently implemented:
     1. `bpm` channel - The estimated beats per minute (BPM) of the audio.
         * Special thanks to Alpha MoonBase for sharing his techniques on this detection using CHOPs.
 1. `beat2` A 2x2 matrix (TOP) indicating the beat progression through each bar of the audio.
-1. `eq1`
-1. `graph1`
-1. `levels1` 
-1. `levels2`
-1. `snd` - Basic CHOP audio stream.
-1. `tex1` -
-1. `tex2` - 
-1. `tex3` -
-1. `tex4` -
-1. `vinyl1` -
-1. `waveforms1` - 
+1. `eq1` - A 2D graphic equilizer showing audio levels for low (blue), mid (green) and high (red) ranges, from left to right. Alpha channel included.
+1. `graph1` - A 2D feedback texture of audio levels, with the most current sample of music on the far right column, and the oldest on the far left.
+1. `levels1` - A 1D texture of current audio levels.
+1. `levels2` - A 2D texture of all current levels (RGB) and a feedback texture of overall levels (Alpha).
+1. `snd` - Basic CHOP audio stream (pass through).
+1. `tex1` - A 2D psuedo-generative texture that displaces audio levels through reaction diffusion.
+1. `tex2` - A 2D psuedo-generative texture that displaces audio levels through visual noise. It's like, so meta, bro.
+1. `tex3` - A low res (1/10th resolution of the Tile Resolution)
+1. `tex4` - A 2D texture of all current levels, sampled with visual feedback to add a more dynamic effect.
+1. `vinyl1` - A spinning disc that is 'etched' with sound levels, starting from twelve o'clock (current sample strip) and proceeding clockwise.
+1. `waveforms1` - A waveform visual with red (left channel), green (right channel), blue (red minus green) and alpha (red feedback) channels.
 
 ### Sndviz Custom Parameters
 #### Audio
@@ -116,9 +117,11 @@ The following Sndviz modules are currently implemented:
 * To correct the ratio of red, green and blue channels visualised, adjust the `RGB Multiplier` parameter.
 * Jump Cuts on `tex1` and `tex2` (triggered on each downbeat) may be disabled via the `Jump Cut` toggle parameter.
 * By default Sndviz is a `32-bit` float component, for maximum accuracy and quality. (It also transmits 32-bit float values over the network to `SndvizReceiver`). Sndviz can be set to `8-bit` or `16-bit` to improve performance via the `Pixel Format` parameter.
+* To adjust the quickness or slowness of audio visuals with feedback, use the `Speed` parameter. Default is 1. This mostly uses a pixel per frame calculation.
+* To reset audio visuals with feedback, pulse the `Reset` parameter.
 
 #### Modules
-* To enable Touch Out functionality for network setups, enable the `Enable Touch Outs` toggle.
+* To enable Touch Out functionality for network setups, enable any of the desired `Enable Touch Out` toggles.
 * Every output module in Sndviz is listed on the `Modules` page. These read-only values may be copied and pasted for use in other components.
 
 ## Acknowledgements
