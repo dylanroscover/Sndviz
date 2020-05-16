@@ -34,6 +34,14 @@ Sometimes it can be useful to run Sndviz on a separate machine for additional pe
 Demo toxes are included in the [/demo/](/demo/) folder, demonstrating how Sndviz modules can be integrated into your project.
 
 ## Changelog
+
+### 0.3.2b
+* Added Base Outs to `Sndviz` base component
+* Fixed mono bug when using an In CHOP as an Audio Source
+* Beat detection performance improvements and bug fixes
+* Added parameter toggles for Touch Out CHOPs (Stream/Beat)
+* Added `Speed` and `Reset` parameters for several modules
+
 ### 0.3.1b
 * Minor performance improvements in `audioSrc` base component
 * Updated Select TOP references (Parameter selects, Global selects and Global Receiver selects options)
