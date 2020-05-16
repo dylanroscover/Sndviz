@@ -126,4 +126,4 @@ The following Sndviz modules are currently implemented (all TOPs are in RGBA for
 
 ## Acknowledgements
 
-Shoutout to [Derivative](https://derivative.ca), [Elburz](https://interactiveimmersive.io), [Alpha MoonBase](https://alphamoonbase.de/), [elekktronaut](https://elekktronaut.com/) and everyone else who's helped me directly or indirectly along the way.
+Shoutout to [Derivative](https://derivative.ca), [Elburz](https://interactiveimmersive.io), [Tim Franklin](http://timsfranklin.com/), [Alpha MoonBase](https://alphamoonbase.de/), [elekktronaut](https://elekktronaut.com/) and everyone else who's helped me directly or indirectly along the way.
