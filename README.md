@@ -1,5 +1,5 @@
 # Sndviz
-A simple, modular audio visualisation toolkit for TouchDesigner.
+A simple, modular audio visualisation toolkit for TouchDesigner 2020.22080 (Windows x64)
 
 ![Sndviz Tox Example Animation](/img/SndvizPreview.gif)
 
