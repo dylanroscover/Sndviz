@@ -1,7 +1,7 @@
 # Sndviz
-A simple, modular audio visualisation toolkit for TouchDesigner 2020.22080 (Windows 10 x64)
+A simple, modular audio visualisation toolkit for TouchDesigner.
 
-![Sndviz Tox Example Animation](/img/SndvizPreview.gif)
+![Sndviz Tox Example Animation](/img/SndvizPreview2.gif)
 
 ## What it does
 Sndviz analyzes an audio device, file or CHOP input into various TOP textures, or 'modules'. Each module consists of 4 discreet data channels (RGBA): high values in red, mids in green, lows in blue, and auxilary data in alpha. These modules can be used for 3d geometry instancing, 2d texturing and other real time audio visualisation use cases where numerous tox files reference the same audio stream.
@@ -13,6 +13,8 @@ Sndviz analyzes an audio device, file or CHOP input into various TOP textures, o
     * If you are using Cable, select `CABLE Input (VB-Audio Virtual Cable)` as the Windows sound output device, and `CABLE Output (VB-Audio Virtual Cable)` as the sound input device. 
 1. Once your preferred audio source is selected and playing, sound data should begin visualising across all Sndviz modules. If they remain black, verify your audio source is correctly configured, as well as the Sndviz `Audio` parameters.
 1. To monitor sound output, select your preferred `Audio Output Device` and toggle the `Enable Audio Output` button to `On`. You can also adjust the `Output Buffer` here to compensate for video latency.
+
+![Sndviz](/img/SndvizScreenshot.png)
 
 ## Usage
 ### Single TouchDesigner Instance (Local)
@@ -31,9 +33,16 @@ Sometimes it can be useful to run Sndviz on a separate machine for additional pe
 1. Inside the `globalReceiverSelects` base component (inside of `SndvizReceiver`) are 16 individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
 
 ## Demos
-Demo toxes are included in the [/demo/](/demo/) folder, demonstrating how Sndviz modules can be integrated into your project.
+Demo toxes are included in the [/demo/](/demo/) folder, demonstrating how Sndviz modules can be integrated into your project. (Note that these currently use an older version of Sndviz, but the principles are roughly the same.)
 
 ## Changelog
+
+### 0.4.0
+* Moved out of beta
+* Updated to 2021.13610 (Windows 10 x64)
+* Added custom par pages and a main `GUI` COMP
+* Minor performance improvements and redo of certain texture generators/filters
+* Updated defaults for a better UX
 
 ### 0.3.2b
 * Added Base Outs to `Sndviz` base component
