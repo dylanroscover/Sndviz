@@ -2,11 +2,12 @@
 ### A simple, modular audio visualisation toolkit for TouchDesigner.
 #### :floppy_disk: TouchDesigner 2022.33910 (Windows)
 #### :floppy_disk: version 0.5.5
+#### Dependencies: PyQt5, numpy
 
 ![Sndviz Tox Example Animation](/img/sndviz.gif)
 
 ## What it does
-Sndviz analyzes an audio device, file or CHOP input into various TOP textures, or 'modules'. Each module consists of 4 discreet data channels (RGBA): high values in red, mids in green, lows in blue, and auxilary data in alpha. These modules can be used for 3d geometry instancing, 2d texturing and other real time audio visualisation use cases where numerous tox files reference the same audio stream.
+Sndviz analyzes an audio device, file or CHOP input into various TOP textures, or 'modules'. Each module consists of 3-4 discreet data channels (RGB/A): high values in red, mids in green, lows in blue, and auxilary data in alpha. These modules can be used for 3d geometry instancing, 2d texturing and other real time audio visualisation use cases.
 
 ## Setup
 1. Drop the [Sndviz.tox](/Sndviz.tox) file into your TouchDesigner project. 
@@ -16,28 +17,25 @@ Sndviz analyzes an audio device, file or CHOP input into various TOP textures, o
 1. Once your preferred audio source is selected and playing, sound data should begin visualising across all Sndviz modules. If they remain black, verify your audio source is correctly configured, as well as the Sndviz `Audio` parameters.
 1. To monitor sound output, select your preferred `Audio Output Device` and toggle the `Enable Audio Output` button to `On`. You can also adjust the `Output Buffer` here to compensate for video latency.
 
-![Sndviz](/img/SndvizScreenshot.png)
 
 ## Usage
 ### Single TouchDesigner Instance (Local)
-1. Inside the `Sndviz` base component, open the `internalSelects` base component. 
-1. Inside the `parSelects` base component are Select TOPs referencing a `SndvizReferences` Parameter DAT. This network can be copied and pasted anywhere in your TouchDesigner project for easy referencing. (Make sure to include the Parameter DAT along with the selects or they will lose their reference.)
-1. Inside the `globalSelects` base component are Select TOPs directly referencing Sndviz. Each of these can be copied and pasted anywhere in your TouchDesigner project for easy referencing.
-    * Due to the optimised nature of TouchDesigner, only Selects you use and display in your final render will be computed from Sndviz; the rest will be ignored.
-    * As long as the `Sndviz` base component is included your project, all selects will be available.
+1. Inside the `Sndviz` base component, copy and paste any of the Select TOPs and/or CHOPs anywhere you would like in your network. Be sure to keep the Sndviz component stored somewhere in your toe.
 
 ### Multiple TouchDesigner Instances (Local/Network)
 Sometimes it can be useful to run Sndviz on a separate machine for additional performance, compute constraints and overall flexibility.
 1. Inside the `Sndviz` base component, cut (or copy) the `SndvizReceiver` base component and paste it into your destination TouchDesigner project. 
 1. If the destination project is running on your local machine (localhost), you do not need to modify any parameters on the `sender` or `SndvizReceiver` base components. 
-    * The Touch In/Out streams should work out of the box, so long as network ports `9988`, `8877`, and `7766` are all open and not in use. If they are in use, they can be easily changed on both the `sender` and `SndvidReceiver` base components `Network Settings` pages, in the `Touch In Ports` and `Touch Out Ports` sections. Ensure that all ports correspond (match) between both components.
 1. If the destination project is running on a remote machine on your network, select the `SndvizReceiver` base component, then the `Network Settings` page, and change the `Computer Name / IP` parameter from `localhost` to the IP of the source machine that Sndviz is running on.
-1. Inside the `globalReceiverSelects` base component (inside of `SndvizReceiver`) are 16 individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
-
-## Demos
-Demo toxes are included in the [/demo/](/demo/) folder, demonstrating how Sndviz modules can be integrated into your project. (Note that these currently use an older version of Sndviz, but the principles are roughly the same.)
+1. Inside the `globalReceiverSelects` base component (inside of `SndvizReceiver`) are individual Select OPs. Each OP can be copied and pasted into anywhere in your TouchDesigner project for easy referencing.
 
 ## Changelog
+
+### 0.5.5
+* Various module refactors and optimizations
+* New beat detection algo based on scheb's [sound-to-light-osc](https://github.com/scheb/sound-to-light-osc). 
+* Simplification of texture outputs
+* Minor audio input bug fixes
 
 ### 0.4.0
 * Moved out of beta
@@ -77,7 +75,7 @@ Initial public beta release.
 * Select OPs between different Touch instances using: `op.SndvizReceiver.op('name-of-module')`.
 * OP shortcuts can also be found on the `Modules` page of the Sndviz base component.
 
-The following Sndviz modules are currently implemented (all TOPs are in RGBA format):
+(OUTDATTED) The following Sndviz modules are currently implemented (all TOPs are in RGBA format):
 1. `avg1` - A 1x1 pixel of averages for high (red), mid (green) and low (blue) ranges. Alpha channel is an average of all ranges.
 1. `avg2` - A 4x4 matrix of averages for high (red), mid (green) and low (blue) values. Alpha channel is an average of all ranges.
 1. `bars1` - A 1D feedback texture of detected beats (RGBA). Alpha channel is float, RGB are boolean values.
@@ -137,4 +135,4 @@ The following Sndviz modules are currently implemented (all TOPs are in RGBA for
 
 ## Acknowledgements
 
-Shoutout to [Derivative](https://derivative.ca), [Elburz](https://interactiveimmersive.io), [Tim Franklin](http://timsfranklin.com/), [Alpha MoonBase](https://alphamoonbase.de/), [elekktronaut](https://elekktronaut.com/) and everyone else who's helped me directly or indirectly along the way.
+Shoutout to scheb for his excellent work on [sound-to-light-osc](https://github.com/scheb/sound-to-light-osc), [Derivative](https://derivative.ca), [Elburz](https://interactiveimmersive.io), [Tim Franklin](http://timsfranklin.com/), [Alpha MoonBase](https://alphamoonbase.de/), [elekktronaut](https://elekktronaut.com/) and everyone else who's helped me directly or indirectly along the way.
