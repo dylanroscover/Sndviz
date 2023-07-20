@@ -1,7 +1,9 @@
 # Sndviz
-A simple, modular audio visualisation toolkit for TouchDesigner.
+### A simple, modular audio visualisation toolkit for TouchDesigner.
+#### :floppy_disk: TouchDesigner 2022.33910 (Windows)
+#### :floppy_disk: version 0.5.5
 
-![Sndviz Tox Example Animation](/img/SndvizPreview2.gif)
+![Sndviz Tox Example Animation](/img/sndviz.gif)
 
 ## What it does
 Sndviz analyzes an audio device, file or CHOP input into various TOP textures, or 'modules'. Each module consists of 4 discreet data channels (RGBA): high values in red, mids in green, lows in blue, and auxilary data in alpha. These modules can be used for 3d geometry instancing, 2d texturing and other real time audio visualisation use cases where numerous tox files reference the same audio stream.
